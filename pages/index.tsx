@@ -1,5 +1,7 @@
 import type { GetStaticPropsResult } from "next";
 import Head from "next/head";
+import Link from "next/link";
+
 import getData from "../getData";
 import { useState } from "react";
 
@@ -73,10 +75,14 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
                     <div className="dropdown-content">
                       {
                         localeData.map(({ country, flag, locale: dataLocale }) =>
-                          <a key={country} href={`/${dataLocale}`}
-                             className={`dropdown-item is-size-6 ${locale === dataLocale && "is-active"}`}>
-                            {flag}{"\t"}{country}
-                          </a>)
+                          <Link
+                            key={country}
+                            href={`/${dataLocale}`}
+                            replace
+                            locale={dataLocale}
+                          >
+                            <a className={`dropdown-item is-size-6 ${locale === dataLocale && "is-active"}`}>{flag}{"\t"}{country}</a>
+                          </Link>)
                       }
                     </div>
                   </div>
@@ -137,8 +143,9 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
       </section>
 
       <footer className="footer">
-        <a className="has-text-white is-size-6" href={"/impressum"}>Impressum</a>
-        <a className="has-text-white is-size-6 ml-4" href={"https://github.com/chrismatix/free-iea-data"}>Source code</a>
+        <Link href={"/impressum"}><a className="has-text-white is-size-6" >Impressum</a></Link>
+        <a className="has-text-white is-size-6 ml-4" href={"https://github.com/chrismatix/free-iea-data"}>Source
+          code</a>
       </footer>
     </div>
   );
