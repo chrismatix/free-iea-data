@@ -42,15 +42,17 @@ a {
   background: rgba(255, 255, 255, 0.63);
 }
 
+$shadow-color: rgb(102 37 37 / 30%);
+
 .card-content {
-  box-shadow: 0 4px 18px #855138;
+  box-shadow: 0 4px 18px $shadow-color;
   border-radius: 8px;
 }
 
 
 .copy-to-email {
   background: #FFFFFF;
-  box-shadow: 0 7px 17px rgba(115, 30, 25, 0.25);
+  box-shadow: 0 7px 17px $shadow-color;
   border-radius: 8px;
   font-weight: bold;
   height: 50px;
@@ -61,7 +63,7 @@ a {
 }
 
 .top-section {
-  background: linear-gradient(180.2deg, rgba(0, 0, 0, 0.41) 0.12%, rgba(0, 0, 0, 0) 97.68%), url("/header-bg.jpg") no-repeat center center fixed;
+  background: linear-gradient(180.2deg, rgba(0, 0, 0, 0.71) 0.12%, rgba(0, 0, 0, .30) 97.68%), url("/header-bg.jpg") no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -74,7 +76,7 @@ a {
 }
 
 #editor {
-  background-color: #FFAC88;
+  background-color: #203242;
 
   .input {
     border-color: white;
@@ -92,5 +94,5 @@ a {
 }
 
 .footer {
-  background: #372920;
+  background: #203242;
 }

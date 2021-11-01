@@ -79,7 +79,7 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
                             key={country}
                             href={`/${dataLocale}`}
                             replace
-                            locale={dataLocale}
+                            locale={false}
                           >
                             <a className={`dropdown-item is-size-6 ${locale === dataLocale && "is-active"}`}>{flag}{"\t"}{country}</a>
                           </Link>)
@@ -134,7 +134,7 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
         <div className="container">
           <div className="container is-flex is-flex-direction-column is-align-items-center mt-5">
             <h2 className="is-size-1 subtitle has-text-centered"><b>{t("share")}</b></h2>
-            <p className="has-text-centered mt-3">{t("shareexplanation")}</p>
+            <p className="has-text-centered mt-3 is-size-4">{t("shareexplanation")}</p>
             <a className="tweet-button mt-5" href={twitterIntent}>
               <img src={"/twitter.svg"} alt={"twitter-icon"} />
             </a>
