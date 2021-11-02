@@ -1,9 +1,10 @@
 import type { GetStaticPropsResult } from "next";
+import { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import getData from "../getData";
-import { useState } from "react";
+import { getCachedData } from "./dev";
 
 interface LandingPageProps {
   locale: string;
@@ -66,12 +67,10 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
                       aria-haspopup="true"
                       aria-controls="dropdown-menu">
                       <span>{flag}{"\t"}{country}</span>
-                      <span className="icon is-medium">
-                                                <i className="fas fa-angle-down" aria-hidden="true" />
-                                            </span>
+                      <span className="icon is-medium"><i className="fas fa-angle-down" aria-hidden="true" /></span>
                     </button>
                   </div>
-                  <div className="dropdown-menu  central-button-width" id="dropdown-menu" role="menu">
+                  <div className="dropdown-menu central-button-width" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
                       {
                         localeData.map(({ country, flag, locale: dataLocale }) =>
@@ -81,7 +80,9 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
                             replace
                             locale={false}
                           >
-                            <a className={`dropdown-item is-size-6 ${locale === dataLocale && "is-active"}`}>{flag}{"\t"}{country}</a>
+                            <a
+                              className={`dropdown-item is-size-6 ${locale === dataLocale && "is-active"}`}
+                            >{flag}{"\t"}{country}</a>
                           </Link>)
                       }
                     </div>
@@ -143,7 +144,7 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
       </section>
 
       <footer className="footer">
-        <Link href={"/impressum"}><a className="has-text-white is-size-6" >Impressum</a></Link>
+        <Link href={"/impressum"}><a className="has-text-white is-size-6">Impressum</a></Link>
         <a className="has-text-white is-size-6 ml-4" href={"https://github.com/chrismatix/free-iea-data"}>Source
           code</a>
       </footer>
@@ -152,10 +153,11 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
 };
 
 export async function getStaticProps({ locale }: { locale: string }): Promise<GetStaticPropsResult<LandingPageProps>> {
+  const dataFetcher = process.env.NODE_ENV === "production" ? getData : getCachedData;
   return {
     props: {
       locale,
-      localeData: process.env.SHEET_ID ? await getData(process.env.SHEET_ID) :
+      localeData: process.env.SHEET_ID ? await dataFetcher(process.env.SHEET_ID) :
         (() => console.warn("No SHEET_ID provided. Proceeding without locale data,"))
     }
   };
