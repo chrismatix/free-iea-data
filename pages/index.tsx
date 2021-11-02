@@ -1,5 +1,5 @@
 import type { GetStaticPropsResult } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -27,12 +27,17 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
     [it.locale]: it
   }), {} as any);
 
-  const makeT = (locale: string) => (key: string) => groupedLocaleData[locale][key] || groupedLocaleData["en-au"][key];
-
+  const makeT = (locale: string) => (key: string) => groupedLocaleData[locale][key] || groupedLocaleData["en-us"][key];
   const t = makeT(locale);
+
   const { email, flag, country } = groupedLocaleData[locale];
   const [body, setBody] = useState(groupedLocaleData[locale].emailbody);
   const [subject, setSubject] = useState(groupedLocaleData[locale].emailsubject);
+  useEffect(() => {
+    setBody(groupedLocaleData[locale].emailbody);
+    setSubject(groupedLocaleData[locale].emailsubject);
+  }, [locale, groupedLocaleData]);
+
 
   const mailToLink = getMailToLink(email, subject, body);
 
