@@ -17,8 +17,23 @@ const fetchData = (spreadsheetId) =>
         credentials
     })
 
-module.exports = fetchData;
+module.exports.fetchData = fetchData;
 
+
+// To avoid nextjs fetching the sheet data once for each locale, we cache it
+let data = null;
+module.exports.fetchDataCached = async (sheetId) => {
+  if (data) {
+    return data;
+  }
+  data = await fetchData(sheetId);
+  setTimeout(() => {
+    data = null
+  }, 360_000);
+  return data;
+};
+
+// Running "node getData.js" downloads the locales only
 if (require.main === module) {
     fetchData(process.argv[2])
         .then(function (result) {

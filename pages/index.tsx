@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
-import getData from "../getData";
-import { getCachedData } from "./dev";
+import {fetchDataCached} from "../getData";
 
 interface LandingPageProps {
   locale: string;
@@ -158,12 +157,14 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
 };
 
 export async function getStaticProps({ locale }: { locale: string }): Promise<GetStaticPropsResult<LandingPageProps>> {
-  const dataFetcher = process.env.NODE_ENV === "production" ? getData : getCachedData;
   return {
     props: {
       locale,
-      localeData: process.env.SHEET_ID ? await dataFetcher(process.env.SHEET_ID) :
-        (() => console.warn("No SHEET_ID provided. Proceeding without locale data,"))
+      localeData: process.env.SHEET_ID ? await fetchDataCached(process.env.SHEET_ID) :
+        (() => {
+          console.error("No SHEET_ID provided. Proceeding without locale data,")
+          process.exit(-1)
+        })()
     }
   };
 }
