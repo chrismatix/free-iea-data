@@ -61,6 +61,16 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
         <meta property="og:image:alt"
               content="Open climate data to research with a button saying copy petition to email" />
 
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@chrismatisch" />
+        <meta name="twitter:title"
+              content="Open climate data to research!" />
+        <meta name="twitter:description"
+              content="The IEA is withholding publicly funded research that could make a big impact on climate research. Write your government to tell them to drop their paywalls." />
+        <meta name="twitter:image"
+              content="https://free-iea-data.com/social.jpg" />
+
+
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
