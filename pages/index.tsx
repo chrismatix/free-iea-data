@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
-import {fetchDataCached} from "../getData";
+import { fetchDataCached } from "../getData";
 
 interface LandingPageProps {
   locale: string;
@@ -43,12 +43,23 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
   return (
     <div>
       <Head>
-        <title>Open climate data to the world</title>
+        <title>Open climate data to research!</title>
         <meta name="description"
               content="The IEA is withholding publicly funded research that could make a big impact on climate research. Write your government to tell them to drop their paywalls." />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
               integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
               crossOrigin="anonymous" />
+
+
+        <meta property="og:title" content="Open climate data to research!" />
+        <meta property="og:description"
+              content="The IEA is withholding publicly funded research that could make a big impact on climate research. Write your government to tell them to drop their paywalls." />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="/social.jpg" />
+        <meta property="og:image:width" content="1280" />
+        <meta property="og:image:height" content="719" />
+        <meta property="og:image:alt"
+              content="Open climate data to research with a button saying copy petition to email" />
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -141,7 +152,7 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
             <h2 className="is-size-1 subtitle has-text-centered"><b>{t("share")}</b></h2>
             <p className="has-text-centered mt-3 is-size-4">{t("shareexplanation")}</p>
             <a className="tweet-button mt-5" href={twitterIntent}>
-              <img src={"/twitter.svg"} alt={"twitter-icon"} />
+              <img width={41} src={"/twitter.svg"} alt={"twitter-icon"} />
             </a>
           </div>
         </div>
@@ -162,11 +173,12 @@ export async function getStaticProps({ locale }: { locale: string }): Promise<Ge
       locale,
       localeData: process.env.SHEET_ID ? await fetchDataCached(process.env.SHEET_ID) :
         (() => {
-          console.error("No SHEET_ID provided. Proceeding without locale data,")
-          process.exit(-1)
+          console.error("No SHEET_ID provided. Proceeding without locale data,");
+          process.exit(-1);
         })()
     }
   };
 }
 
 export default Landing;
+
