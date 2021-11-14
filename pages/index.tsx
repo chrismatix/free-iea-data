@@ -10,9 +10,16 @@ interface LandingPageProps {
   localeData: Record<string, string>[]
 }
 
-const getMailToLink = (email: string, subject: string, body: string) => `
-mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}
-`.trim();
+const getMailToLink = (email: string, subject: string, body: string) => {
+  // Unfortunately some ministries only support contact forms so we link there instead
+  if(email.indexOf("@") === -1) {
+    return email.trim();
+  }
+
+  return `
+  mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}
+  `.trim();
+};
 
 const twitterIntent = ["https://twitter.com/intent/tweet",
   `?url=${encodeURIComponent("free-iea-data.com")}`,
@@ -50,7 +57,6 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
               integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
               crossOrigin="anonymous" />
 
-
         <meta property="og:title" content="Open climate data to research!" />
         <meta property="og:description"
               content="The IEA is withholding publicly funded research that could make a big impact on climate research. Write your government to tell them to drop their paywalls." />
@@ -63,13 +69,10 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@chrismatisch" />
-        <meta name="twitter:title"
-              content="Open climate data to research!" />
+        <meta name="twitter:title" content="Open climate data to research!" />
         <meta name="twitter:description"
               content="The IEA is withholding publicly funded research that could make a big impact on climate research. Write your government to tell them to drop their paywalls." />
-        <meta name="twitter:image"
-              content="https://free-iea-data.com/social.jpg" />
-
+        <meta name="twitter:image" content="https://free-iea-data.com/social.jpg" />
 
         <link rel="icon" href="/favicon.ico" />
       </Head>
