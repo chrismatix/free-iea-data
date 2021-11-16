@@ -5,6 +5,8 @@
 
 This is the source code repository for the campaign website: [https://free-iea-data.com](https://free-iea-data.com)
 
+Inspired by this excellent analysis: https://ourworldindata.org/iea-open-data
+
 ## Getting Started
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
