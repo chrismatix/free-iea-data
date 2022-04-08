@@ -151,7 +151,6 @@ const Landing = ({ locale, localeData }: LandingPageProps) => {
                                   onChange={(e) => setBody(e.target.value)} />
             </div>
           </div>
-
           <div className="is-flex is-flex-direction-column is-align-items-center">
             <a className="button mt-5 central-button-width copy-to-email"
                href={mailToLink}>{t("buttonText")}</a>
